@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:green/src/utils/fade_in_transition.dart';
 class StatisticView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return FadeInTransition(child: Container(
       padding: EdgeInsets.symmetric(vertical: 24.0),
       child: Column(
         children: <Widget>[
@@ -17,14 +17,15 @@ class StatisticView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Cases statistic', style: GoogleFonts.montserrat(color: Colors.grey[800], fontSize: 32.0, fontWeight: FontWeight.w500)),
-                Text('Grow up', style: GoogleFonts.nunito(fontSize: 14.0, color: Colors.grey[500]),)
+                Text('Cases statistic', style: TextStyle(color: Colors.grey[800], fontSize: 32.0, fontWeight: FontWeight.w500)),
+                Text('Grow up', style: TextStyle(fontSize: 14.0, color: Colors.grey[500]),)
               ],
             )
           ),
           Expanded(child: _StatisticView())
         ],
       )
+    )
     );
   }
 }
@@ -35,10 +36,10 @@ class _IsolateIndex extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(bottom: 24.0),
       child: Column(children: <Widget>[
-        Text('Isolate index:', style: GoogleFonts.montserrat(color: Colors.grey[800], fontSize: 40.0, fontWeight: FontWeight.w500)),
-        Center(child: Text('3.5', style: GoogleFonts.nunito(color: Colors.red[800], fontSize: 96.0, fontWeight: FontWeight.w900))),
-        Text('Most people are aware of isolation.', style: GoogleFonts.nunito(color: Colors.grey[700], fontSize: 16.0)),
-        Text('Please, stay home', style: GoogleFonts.nunito(color: Colors.grey[700], fontSize: 16.0))
+        Text('Isolate index:', style: TextStyle(color: Colors.grey[800], fontSize: 40.0, fontWeight: FontWeight.w500)),
+        Center(child: Text('3.5', style: TextStyle(color: Colors.red[800], fontSize: 96.0, fontWeight: FontWeight.w900))),
+        Text('Most people are aware of isolation.', style: TextStyle(color: Colors.grey[700], fontSize: 16.0)),
+        Text('Please, stay home', style: TextStyle(color: Colors.grey[700], fontSize: 16.0))
       ])
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:typicons_flutter/typicons_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:location/location.dart';
 class PlacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class PlacePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Center(
-                  child: Text('COVINFO', style: GoogleFonts.montserrat(color: Colors.grey[800], fontSize: 86.0, fontWeight: FontWeight.w500))
+                  child: Text('COVINFO', style: TextStyle(color: Colors.grey[800], fontSize: 86.0, fontWeight: FontWeight.w500))
                 )
               ),
               Expanded(
@@ -28,8 +28,8 @@ class PlacePage extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 12.0),
                         child: _GeoButton()
                       ),
-                      Text('Try to find your place in the list', style: GoogleFonts.nunito(color: Colors.grey[700], fontSize: 14.0)),
-                      Text('Or use geo', style: GoogleFonts.nunito(color: Colors.grey[700], fontSize: 14.0))
+                      Text('Try to find your place in the list', style: TextStyle(color: Colors.grey[700], fontSize: 14.0)),
+                      Text('Or use geo', style: TextStyle(color: Colors.grey[700], fontSize: 14.0))
                     ],)
                 )
               ),
@@ -62,7 +62,7 @@ class _PlaceInput extends State<_PlaceInputView> {
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
       child: CupertinoTextField(
         controller: _textController,
-        style: GoogleFonts.nunito(),
+        style: TextStyle(),
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: Colors.grey[200],
@@ -74,6 +74,13 @@ class _PlaceInput extends State<_PlaceInputView> {
   }
 }
 
+void _getLocation (context) async {
+  Location location = new Location();
+  LocationData _locationData;
+  _locationData = await location.getLocation();
+  print(_locationData);
+  Navigator.pushNamed(context, 'info');
+}
 class _GeoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -81,12 +88,12 @@ class _GeoButton extends StatelessWidget {
       color: Colors.red[800],
       padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 48.0),
       pressedOpacity: 0.5,
-      onPressed: () => Navigator.pushNamed(context, 'info'),
+      onPressed: () => _getLocation(context),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Typicons.location_outline),
-          Text('Find your place', style: GoogleFonts.montserrat(color: Colors.white))
+          Text('Find your place', style: TextStyle(color: Colors.white))
         ]
       )
     );
