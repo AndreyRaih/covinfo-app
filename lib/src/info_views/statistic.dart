@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:google_fonts/google_fonts.dart';
 import 'package:green/src/utils/fade_in_transition.dart';
 class StatisticView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FadeInTransition(child: Container(
+    return Container(
       padding: EdgeInsets.symmetric(vertical: 24.0),
       child: Column(
         children: <Widget>[
-          _IsolateIndex(),
-          Divider(color: Colors.grey),
-          Container(
+          FadeInTransition(duration: Duration(milliseconds: 350), child: _IsolateIndex()),
+          FadeInTransition(duration: Duration(milliseconds: 400), child: Divider(color: Colors.grey)),
+          FadeInTransition(duration: Duration(milliseconds: 450), child: Container(
             margin: EdgeInsets.only(top: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -21,12 +20,12 @@ class StatisticView extends StatelessWidget {
                 Text('Grow up', style: TextStyle(fontSize: 14.0, color: Colors.grey[500]),)
               ],
             )
-          ),
-          Expanded(child: _StatisticView())
+          )),
+          Expanded(child: FadeInTransition(duration: Duration(milliseconds: 500), child: _StatisticView()))
         ],
       )
-    )
     );
+
   }
 }
 

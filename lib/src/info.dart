@@ -4,16 +4,17 @@ import 'package:green/src/info_views/short_info.dart';
 import 'package:green/src/info_views/statistic.dart';
 import 'package:green/src/info_views/news.dart';
 import 'package:typicons_flutter/typicons_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:location/location.dart';
 import "package:http/http.dart" as http;
 import "dart:convert" as convert;
 import "package:green/src/data/region.dart";
+import 'package:provider/provider.dart';
+import 'package:green/src/data_state.dart';
 class InfoPage extends StatefulWidget {
   State<InfoPage> createState() => _InfoPageView();
 }
 
 class _InfoPageView extends State<InfoPage> {
-  RegionData currentRegion;
 
   List<Widget> tabs = [
     ShortInfoView(),
@@ -21,11 +22,26 @@ class _InfoPageView extends State<InfoPage> {
     NewsView()
   ];
 
-  Widget _currentView(int index, var context) {
+  @override
+  void initState () {
+    super.initState();
+  }
+
+  Widget _currentView(int index) {
     var currentView;
     currentView = tabs[index];
     return currentView;
   }
+  
+  Future _getLocationInfo (model) async {
+    var currentRegion = await _getCovidInfo();
+    currentRegion.forEach((item) => {
+      if (item["location"].contains(model.location)) {
+        model.setLocationObject(item)
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -52,7 +68,15 @@ class _InfoPageView extends State<InfoPage> {
                 )
               ),
               Expanded(
-                child: _currentView(index, context)
+                child: Consumer<LocationModel>(
+                builder: (context, model, child) {
+                  return FutureBuilder(
+                    future: _getLocationInfo(model),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) { 
+                      return _currentView(index);
+                    }
+                  );
+                })
               )
             ]
           )
@@ -80,14 +104,13 @@ class _HeaderView extends StatelessWidget {
   }
 }
 
-/*Future<RegionData> _getCovidInfo() async {
+Future _getCovidInfo() async {
   var url = 'https://www.trackcorona.live/api/cities';
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var jsonResponse = convert.jsonDecode(response.body);
-    RegionData result = jsonResponse["data"].firstWhere((item) => item["location"] == 'Penza Oblast');
-    return result;
+    return jsonResponse["data"];
   } else {
     print('Request failed with status: ${response.statusCode}.');
   }
-} */
+}

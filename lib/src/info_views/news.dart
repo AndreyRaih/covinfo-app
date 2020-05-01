@@ -8,7 +8,7 @@ class NewsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FadeInTransition(child: Container(
+    return FadeInTransition(duration: Duration(milliseconds: 350), child: Container(
       alignment: Alignment.centerLeft,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
