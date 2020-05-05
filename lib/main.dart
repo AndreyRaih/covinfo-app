@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:green/src/place.dart';
-import 'package:green/src/info.dart';
+import 'package:green/src/screens/place.dart';
+import 'package:green/src/screens/info.dart';
 import 'package:provider/provider.dart';
-import 'package:green/src/data_state.dart';
+import "package:green/src/share_state/main.dart";
 
 void main() => runApp(MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LocationModel(),
+      create: (context) => StateModel(),
       child: CupertinoApp(
         initialRoute: '/',
         routes: {

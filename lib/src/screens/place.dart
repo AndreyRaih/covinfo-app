@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:typicons_flutter/typicons_flutter.dart';
-import "package:http/http.dart" as http;
-import "dart:convert" as convert;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
-import 'package:green/src/data_state.dart';
+import "package:green/src/share_state/main.dart";
+
 class PlacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -82,40 +80,24 @@ Future _getLocation (context) async {
   Location location = new Location();
   LocationData _locationData;
   _locationData = await location.getLocation();
-  // Use Google.places API, for defined city for forecast.
-  String _placeName = await searchPlace(LatLng(_locationData.latitude, _locationData.longitude));
+  Provider.of<StateModel>(context).setLocation(_locationData);
   Navigator.pushNamed(context, 'info');
-  return _placeName;
 }
 class _GeoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<LocationModel>(
-      builder: (context, model, child) {
-        return CupertinoButton(
-          color: Colors.red[800],
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 48.0),
-          pressedOpacity: 0.5,
-          onPressed: () async => model.setLocation(await _getLocation(context)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Typicons.location_outline),
-              Text('Find your place', style: TextStyle(color: Colors.white))
-            ]
-          )
-        );
-      }
+    return CupertinoButton(
+      color: Colors.red[800],
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 48.0),
+      pressedOpacity: 0.5,
+      onPressed: () async => await _getLocation(context),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Typicons.location_outline),
+          Text('Find your place', style: TextStyle(color: Colors.white))
+        ]
+      )
     );
-  }
-}
-
-Future searchPlace (location) async {
-  String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.latitude},${location.longitude}&radius=10000&key=AIzaSyAGACJrdxHFZK3UEAbktYav9sLHyomcZr0";
-  var response = await http.get(url);
-  if (response.statusCode == 200) {
-    var jsonResponse = convert.jsonDecode(response.body);
-    var result = jsonResponse["results"][0];
-    return result["name"];
   }
 }

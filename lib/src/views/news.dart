@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter_linkify/flutter_linkify.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:green/src/utils/fade_in_transition.dart';
+import 'package:green/src/shared/fade_in_transition.dart';
+
 class NewsView extends StatelessWidget {
   final List<String> articles = <String>['Article one', 'Article two', 'Article three', 'Article four', 'Article one', 'Article two', 'Article three', 'Article four'];
 

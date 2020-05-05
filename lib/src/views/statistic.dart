@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:green/src/utils/fade_in_transition.dart';
+import 'package:green/src/shared/fade_in_transition.dart';
+
 class StatisticView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

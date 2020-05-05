@@ -1,33 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:green/src/utils/fade_in_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:green/src/share_state/main.dart';
+import 'package:green/src/shared/fade_in_transition.dart';
+
 class ShortInfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            FadeInTransition(duration: Duration(milliseconds: 350), child: _InfoBlock(
-              label: 'Totaly',
-              text: '2021',
-              difference: '312',
-              differencePercentage: '24%'
-            )),
-            FadeInTransition(duration: Duration(milliseconds: 450), child: _InfoBlock(
-              label: 'Recovered',
-              text: '723',
-              difference: '46',
-              differencePercentage: '15%'
-            )),
-            FadeInTransition(duration: Duration(milliseconds: 500), child: _InfoBlock(
-              label: 'Deaths',
-              text: '34',
-              difference: '2',
-              differencePercentage: '8%'
-            ))
-          ]
-        );
+      return Consumer<StateModel>(
+          builder: (context, model, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                FadeInTransition(duration: Duration(milliseconds: 350), child: _InfoBlock(
+                  label: 'Totaly',
+                  text: model.covidData.confirmed.toString(),
+                  difference: '312',
+                  differencePercentage: '24%'
+                )),
+                FadeInTransition(duration: Duration(milliseconds: 450), child: _InfoBlock(
+                  label: 'Recovered',
+                  text: model.covidData.recovered.toString(),
+                  difference: '46',
+                  differencePercentage: '15%'
+                )),
+                FadeInTransition(duration: Duration(milliseconds: 500), child: _InfoBlock(
+                  label: 'Deaths',
+                  text: model.covidData.dead.toString(),
+                  difference: '2',
+                  differencePercentage: '8%'
+                ))
+              ]
+            );
+          }
+      );
   }
 }
 
@@ -57,7 +63,7 @@ class _InfoBlock extends StatelessWidget {
             ]
           )
         ),
-        Positioned(
+        /* Positioned(
           right: 0,
           child: Container(
               padding: EdgeInsets.all(12.0),
@@ -67,7 +73,7 @@ class _InfoBlock extends StatelessWidget {
               ),
               child: Text('+$difference ($differencePercentage)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16.0)),
             ),
-        )
+        ) */
       ],
     );
   }
