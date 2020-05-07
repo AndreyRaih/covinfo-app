@@ -14,19 +14,19 @@ class ShortInfoView extends StatelessWidget {
               children: <Widget>[
                 FadeInTransition(duration: Duration(milliseconds: 350), child: _InfoBlock(
                   label: 'Totaly',
-                  text: model.covidData.confirmed.toString(),
+                  text: model.covidActualData.confirmed.toString(),
                   difference: '312',
                   differencePercentage: '24%'
                 )),
                 FadeInTransition(duration: Duration(milliseconds: 450), child: _InfoBlock(
                   label: 'Recovered',
-                  text: model.covidData.recovered.toString(),
+                  text: model.covidActualData.recovered.toString(),
                   difference: '46',
                   differencePercentage: '15%'
                 )),
                 FadeInTransition(duration: Duration(milliseconds: 500), child: _InfoBlock(
                   label: 'Deaths',
-                  text: model.covidData.dead.toString(),
+                  text: model.covidActualData.dead.toString(),
                   difference: '2',
                   differencePercentage: '8%'
                 ))

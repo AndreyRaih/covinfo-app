@@ -80,7 +80,7 @@ Future _getLocation (context) async {
   Location location = new Location();
   LocationData _locationData;
   _locationData = await location.getLocation();
-  Provider.of<StateModel>(context).setLocation(_locationData);
+  Provider.of<StateModel>(context).initAppData(_locationData);
   Navigator.pushNamed(context, 'info');
 }
 class _GeoButton extends StatelessWidget {

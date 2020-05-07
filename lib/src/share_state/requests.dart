@@ -33,3 +33,14 @@ Future getCovidHistory (name, date) async {
     print('Request failed with status: ${response.statusCode}.');
   }
 }
+
+Future getCovidNews (name) async {
+  String url = "https://www.trackcorona.live/api/travel";
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var jsonResponse = convert.jsonDecode(response.body);
+    return jsonResponse["data"].where((item) => item["data"].contains(name));
+  } else {
+    print('Request failed with status: ${response.statusCode}.');
+  }
+}

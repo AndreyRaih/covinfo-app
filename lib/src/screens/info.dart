@@ -45,15 +45,15 @@ class _InfoPageView extends State<InfoPage> {
       tabBuilder: (context, index) {
         return Consumer<StateModel>(
           builder: (context, model, child) {
-            return model.covidData == null ? Center(widthFactor: 15.0, heightFactor: 15.0, child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.red[800]))) : Container(
+            return model.covidActualData == null ? Center(widthFactor: 15.0, heightFactor: 15.0, child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.red[800]))) : Container(
               padding: EdgeInsets.symmetric(vertical: 48.0, horizontal: 24.0),
               child: Column(
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 24.0, bottom: 48.0),
                     child: _HeaderView(
-                      city: model.covidData.city,
-                      date: model.covidData.updated.toString()
+                      city: model.covidActualData.city,
+                      date: model.covidActualData.updated.toString()
                     )
                   ),
                   Expanded(
