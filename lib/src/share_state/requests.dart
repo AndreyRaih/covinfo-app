@@ -39,7 +39,7 @@ Future getCovidNews (name) async {
   var response = await http.get(url);
   if (response.statusCode == 200) {
     var jsonResponse = convert.jsonDecode(response.body);
-    return jsonResponse["data"].where((item) => item["data"].contains(name));
+    return jsonResponse["data"];
   } else {
     print('Request failed with status: ${response.statusCode}.');
   }

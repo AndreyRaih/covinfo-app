@@ -11,7 +11,10 @@ class ShortInfoView extends StatelessWidget {
           builder: (context, model, child) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Text('Actual state:', style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w600, fontSize: 36.0,)),
+                Divider(color: Colors.grey,),
                 FadeInTransition(duration: Duration(milliseconds: 350), child: _InfoBlock(
                   label: 'Totaly',
                   text: model.covidActualData.confirmed.toString(),
@@ -53,7 +56,7 @@ class _InfoBlock extends StatelessWidget {
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25.0),
-            color: Colors.grey[300],
+            color: Colors.grey[200],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,17 +66,6 @@ class _InfoBlock extends StatelessWidget {
             ]
           )
         ),
-        /* Positioned(
-          right: 0,
-          child: Container(
-              padding: EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
-                color: Colors.red[800],
-              ),
-              child: Text('+$difference ($differencePercentage)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16.0)),
-            ),
-        ) */
       ],
     );
   }

@@ -1,44 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:green/src/shared/fade_in_transition.dart';
+import 'package:provider/provider.dart';
+import "package:green/src/share_state/main.dart";
 
 class NewsView extends StatelessWidget {
-  final List<String> articles = <String>['Article one', 'Article two', 'Article three', 'Article four', 'Article one', 'Article two', 'Article three', 'Article four'];
-
   @override
   Widget build(BuildContext context) {
-    return FadeInTransition(duration: Duration(milliseconds: 350), child: Container(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('Last news', style: TextStyle(color: Colors.grey[800], fontSize: 40.0, fontWeight: FontWeight.w500)),
-          ListView.separated(
-            padding: EdgeInsets.symmetric(vertical: 24.0),
-            shrinkWrap: true,
-            itemCount: 3,
-            itemBuilder: (BuildContext context, int index) {
-              return _NewsItem();
-            },
-            separatorBuilder: (BuildContext context, int index) => const Divider(color: Colors.grey),
-          )
-        ],
-      ),
-    ));
+    final List articles = Provider.of<StateModel>(context).covidRegionNews;
+    return FadeInTransition(duration: Duration(milliseconds: 300), child: SingleChildScrollView(child: Container(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Last news:', style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w600, fontSize: 36.0,)),
+              Divider(color: Colors.grey,),
+              Column(
+                children: articles.map((article) => _NewsItem(article)).toList()
+              )
+            ],
+          ),
+        )));
   }
 }
 
 class _NewsItem extends StatelessWidget {
+  var article;
+  _NewsItem(_data) {
+    article = _data;
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
+      padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Article title', style: TextStyle(color: Colors.grey[800], fontSize: 24.0)),
-          Text('Text. Article content. Text. Article content. Text. Article content.', style: TextStyle(color: Colors.grey[600], fontSize: 16.0)),
-          Text('See more in <url>', style: TextStyle(color: Colors.red[800], fontSize: 16.0))
+          Text(article["location"], style: TextStyle(color: Colors.grey[800], fontSize: 24.0)),
+          Text(article["data"], style: TextStyle(color: Colors.grey[600], fontSize: 16.0)),
         ],
       )
     );

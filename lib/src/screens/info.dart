@@ -46,41 +46,43 @@ class _InfoPageView extends State<InfoPage> {
         return Consumer<StateModel>(
           builder: (context, model, child) {
             return model.covidActualData == null ? Center(widthFactor: 15.0, heightFactor: 15.0, child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.red[800]))) : Container(
-              padding: EdgeInsets.symmetric(vertical: 48.0, horizontal: 24.0),
+              padding: EdgeInsets.symmetric(vertical: 48.0, horizontal: 12.0),
+              decoration: new BoxDecoration(
+                image: new DecorationImage(
+                  image: new AssetImage("assets/background.png"),
+                  fit: BoxFit.fill,
+                ),
+              ),
               child: Column(
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 24.0, bottom: 48.0),
-                    child: _HeaderView(
-                      city: model.covidActualData.city,
-                      date: model.covidActualData.updated.toString()
-                    )
+                    child: Text(model.covidActualData.city, style: TextStyle(color: Colors.white, fontSize: 40.0, fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
-                    child: _currentView(index)
+                    child: Container(
+                      padding: EdgeInsets.all(14.0),
+                      alignment: Alignment.centerLeft,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                          topLeft: new Radius.circular(25.0),
+                          topRight: new Radius.circular(25.0),
+                        ),
+                        boxShadow: [
+                          new BoxShadow(
+                            color: Colors.grey[600],
+                            offset: new Offset(0.0, 0.0),
+                            blurRadius: 15.0
+                          )
+                        ],
+                      ),
+                      child: _currentView(index)
+                    )
                   )
                 ])
               );
               });
           });
-  }
-}
-
-class _HeaderView extends StatelessWidget {
-  _HeaderView({this.city, this.date});
-  final String city;
-  final String date;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('$city', style: TextStyle(color: Colors.grey[800], fontSize: 36.0, fontWeight: FontWeight.bold)),
-          Text('$date', style: TextStyle(color: Colors.grey[800], fontSize: 18.0, fontWeight: FontWeight.bold))
-        ],
-      )
-    );
   }
 }

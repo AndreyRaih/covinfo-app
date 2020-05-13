@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
+import "package:green/src/share_state/requests.dart";
 import "package:green/src/data/region.dart";
 import "package:green/src/data/covid.dart";
 import 'package:location/location.dart';
-import "./requests.dart";
 import 'package:intl/intl.dart';
 
 class StateModel extends ChangeNotifier {
@@ -10,10 +10,12 @@ class StateModel extends ChangeNotifier {
   CovidActual covidActualData;
   List <CovidHistory> covidHistoryList = [];
   var covidRegionNews = [];
+  CovidHistory currentStatisticDay;
   Future initAppData (LocationData location) async {
     await _setLocation(location);
     await _setCovidInfo(region.city);
     await _getHistoryData(region.city);
+    notifyListeners();
     await _getRegionCovidNews(region.city);
     notifyListeners();
   }
@@ -35,12 +37,18 @@ class StateModel extends ChangeNotifier {
     void _addDateRegionData (date) async {
       String formatDate = new DateFormat('yyyy-MM-dd', 'en_US').format(date);
       var historyData = await getCovidHistory(regionName, formatDate);
-      if (historyData != null) covidHistoryList.add(CovidHistory(historyData["region"]["cities"][0]));
+      if (historyData != null) {
+        covidHistoryList.add(CovidHistory(historyData["region"]["cities"][0]));
+        covidHistoryList.sort((a, b) => a.updated.compareTo(b.updated));
+      };
     }
     dates.forEach((item) => _addDateRegionData(item));
   }
   Future _getRegionCovidNews(String regionName) async {
     covidRegionNews = await getCovidNews(regionName);
-    print(covidRegionNews);
+  }
+  void setCurrentStatisticModel (CovidHistory _data) {
+    currentStatisticDay = _data;
+    notifyListeners();
   }
 }
