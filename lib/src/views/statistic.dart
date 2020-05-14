@@ -56,7 +56,7 @@ class _IsolateIndex extends StatelessWidget {
         Divider(color: Colors.grey),
         Row(children: [ 
           Text("So, it's look like a ", style: TextStyle(color: Colors.grey[600], fontSize: 14.0, fontWeight: FontWeight.w500)),
-          Text(currentDay.confirmedDiff > 20 ? 'Grow up' : 'Decreases', style: TextStyle(color: currentDay.confirmedDiff > 20 ? Colors.red[600] : Colors.green[600], fontSize: 14.0, fontWeight: FontWeight.w500))
+          Text(currentDay.confirmedDiff > 20 ? 'Grow up' : 'Flat', style: TextStyle(color: currentDay.confirmedDiff > 20 ? Colors.red[600] : Colors.green[600], fontSize: 14.0, fontWeight: FontWeight.w500))
         ])
       ]) : null
     );

@@ -57,11 +57,11 @@ class _InfoPageView extends State<InfoPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 24.0, bottom: 48.0),
-                    child: Text(model.covidActualData.city, style: TextStyle(color: Colors.white, fontSize: 40.0, fontWeight: FontWeight.bold)),
+                    child: Text(model.covidActualData.city, style: TextStyle(color: Colors.white, fontSize: 46.0, fontWeight: FontWeight.bold)),
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(14.0),
+                      padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
                         color: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CovidActual {
@@ -34,4 +35,10 @@ class CovidHistory {
     deaths = _data["deaths"];
     deathsDiff = _data["deaths_diff"];
   }
+}
+
+class CovidNews {
+  String location;
+  String data;
+  CovidNews({@required this.location, @required this.data});
 }

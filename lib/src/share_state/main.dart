@@ -15,7 +15,6 @@ class StateModel extends ChangeNotifier {
     await _setLocation(location);
     await _setCovidInfo(region.city);
     await _getHistoryData(region.city);
-    notifyListeners();
     await _getRegionCovidNews(region.city);
     notifyListeners();
   }
@@ -46,6 +45,7 @@ class StateModel extends ChangeNotifier {
   }
   Future _getRegionCovidNews(String regionName) async {
     covidRegionNews = await getCovidNews(regionName);
+    covidRegionNews = covidRegionNews.where((item) => item["data"].contains('${regionName}')).toList();
   }
   void setCurrentStatisticModel (CovidHistory _data) {
     currentStatisticDay = _data;

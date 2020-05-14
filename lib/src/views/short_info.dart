@@ -48,8 +48,10 @@ class _InfoBlock extends StatelessWidget {
   final String differencePercentage;
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        Text(label, style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w600, fontSize: 24.0)),
         Container(
           padding: EdgeInsets.all(12.0),
           margin: EdgeInsets.symmetric(vertical: 12.0),
@@ -61,8 +63,7 @@ class _InfoBlock extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('$label:', style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w500, fontSize: 24.0)),
-              Center(child: Text(text, style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w800, fontSize: 72.0))),
+              Center(child: Text(text, style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w600, fontSize: 72.0))),
             ]
           )
         ),

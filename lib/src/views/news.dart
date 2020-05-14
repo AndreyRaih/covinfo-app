@@ -10,6 +10,7 @@ class NewsView extends StatelessWidget {
     final List articles = Provider.of<StateModel>(context).covidRegionNews;
     return FadeInTransition(duration: Duration(milliseconds: 300), child: SingleChildScrollView(child: Container(
           alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(bottom: 24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
